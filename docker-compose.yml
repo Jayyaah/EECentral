@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    platform: linux/arm64
+    container_name: eecentral_db
+    environment:
+      POSTGRES_DB: eecentral
+      POSTGRES_USER: eecentral
+      POSTGRES_PASSWORD: eecentral
+    volumes:
+      - pgdata_eecentral:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eecentral -d eecentral"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "5433:5432"
+
+  web:
+    build: .
+    container_name: eecentral_web
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/eecentral
+      SPRING_DATASOURCE_USERNAME: eecentral
+      SPRING_DATASOURCE_PASSWORD: eecentral
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_FLYWAY_ENABLED: "true"
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata_eecentral:
