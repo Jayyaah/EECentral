@@ -12,7 +12,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::latest()->get();
+
+        return view('admin.articles.index', compact('articles'));
     }
 
     /**
