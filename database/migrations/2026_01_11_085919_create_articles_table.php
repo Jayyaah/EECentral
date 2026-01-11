@@ -13,9 +13,24 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+
+            $table->string('title');
+            $table->string('slug')->unique();
+
+            $table->text('content');
+
+            $table->string('image')->nullable();
+
+            $table->string('game');
+            $table->string('map');
+
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->timestamp('published_at')->nullable();
+
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
