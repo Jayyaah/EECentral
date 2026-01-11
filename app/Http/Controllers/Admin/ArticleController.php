@@ -31,7 +31,24 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title'   => 'required|string|max:255',
+            'content' => 'required',
+            'game'    => 'required|string|max:50',
+            'map'     => 'required|string|max:50',
+            'status'  => 'required|in:draft,published',
+        ]);
+
+        $validated['slug'] = Str::slug($validated['title']);
+
+        if ($validated['status'] === 'published') {
+            $validated['published_at'] = now();
+        }
+
+        Article::create($validated);
+
+        return redirect()->route('admin.articles.index')
+            ->with('success', 'Article créé');
     }
 
     /**
