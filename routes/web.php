@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
+use App\Http\Controllers\Admin\UserController;
 
 
 Route::get('/', function () {
@@ -27,6 +28,9 @@ Route::middleware(['auth', 'admin', 'can:viewAny,App\Models\Article'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('articles', ArticleController::class);
+        Route::resource('users', UserController::class)->only([
+            'index', 'create', 'store'
+        ]);
     });
 
 require __DIR__.'/auth.php';
