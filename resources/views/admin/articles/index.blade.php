@@ -26,13 +26,14 @@
                 <td>{{ $article->map }}</td>
                 <td>{{ $article->status }}</td>
                 <td>
-                    <a href="{{ route('admin.articles.edit', $article) }}">✏️</a>
+                    <a href="{{ route('admin.articles.edit', $article) }}">Modifier</a>
                     <form action="{{ route('admin.articles.destroy', $article) }}"
                           method="POST"
-                          style="display:inline">
+                          style="display:inline"
+                    onsubmit="return confirm('Supprimer cet article ?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">🗑</button>
+                        <button type="submit">Supprimer</button>
                     </form>
                 </td>
             </tr>
