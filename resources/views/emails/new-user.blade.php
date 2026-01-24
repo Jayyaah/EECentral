@@ -8,8 +8,8 @@
 <p><strong>Mot de passe temporaire :</strong> {{ $password }}</p>
 
 <p>
-    <a href="{{ url('/login') }}">
-        👉 Se connecter
+    <a href="{{ route('login') }}">
+        {{ route('login') }}
     </a>
 </p>
 
