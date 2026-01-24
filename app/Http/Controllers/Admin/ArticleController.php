@@ -113,4 +113,8 @@ class ArticleController extends Controller
             ->route('admin.articles.index')
             ->with('success', 'Article supprimé');
     }
+
+    public function __construct(){
+        $this->authorizeResource(Article::class, 'article');
+    }
 }
