@@ -24,10 +24,9 @@
             <input type="email" name="email" required>
         </div>
 
-        <div>
-            <label>Mot de passe</label><br>
-            <input type="password" name="password" required>
-        </div>
+        <p>
+            🔐 Un mot de passe temporaire sera généré et envoyé par email.
+        </p>
 
         <div>
             <label>Rôle</label><br>
