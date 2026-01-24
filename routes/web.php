@@ -21,7 +21,7 @@ Route::get('/dashboard', function () {
 /**
  * Admin
  */
-Route::middleware(['auth'])
+Route::middleware(['auth', 'admin', 'can:viewAny,App\Models\Article'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
