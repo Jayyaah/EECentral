@@ -12,5 +12,13 @@ class ArticleController extends Controller
     {
         return 'Front OK (temporaire)';
     }
+
+    public function show($slug) {
+        $article = Article::where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        return view('front.article', compact('article'));
+    }
 }
 
