@@ -63,24 +63,49 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Article $article)
     {
-        //
+        return view('admin.articles.edit', compact('article'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Article $article)
     {
-        //
+        $validated = $request->validate([
+           'title'   => 'required|string|max:255',
+           'content' => 'required',
+           'game'    => 'required|string|max:50',
+           'map'     => 'required|string|max:50',
+           'status'  => 'required|in:draft,published',
+        ]);
+
+        if ($validated['title'] !== $article->title) {
+            $validated['slug'] = Str::slug($validated['title']);
+        }
+
+        if ($validated['status'] === 'published' && !$article->published_at) {
+            $validated['published_at'] = now();
+        }
+
+        if ($validated['status'] === 'draft') {
+            $validated['published_at'] = null;
+        }
+
+        $article->update($validated);
+
+        return redirect()
+            ->route('admin.articles.index')
+            ->with('success', 'Article mis à jour');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Article $article)
     {
-        //
+        $article->delete();
+
+        return redirect()
+            ->route('admin.articles.index')
+            ->with('success', 'Article supprimé');
     }
 }
