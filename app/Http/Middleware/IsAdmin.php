@@ -15,9 +15,14 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->isAdmin()) {
+        if (!auth()->check()) {
             abort(403);
         }
+
+        if (!in_array(auth()->user()->role, ['admin', 'editor'])) {
+            abort(403);
+        }
+
         return $next($request);
     }
 }
