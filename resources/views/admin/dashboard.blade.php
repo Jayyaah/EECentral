@@ -3,6 +3,10 @@
 @section('content')
     <h1>Dashboard admin</h1>
 
+    @can('create', App\Models\Article::class)
+        <a href="{{ route('admin.articles.create') }}">➕ Créer un article</a>
+    @endcan
+
     <p>Total articles : {{ $totalArticles }}</p>
     <p>Publiés : {{ $publishedArticles }}</p>
     <p>Brouillons : {{ $draftArticles }}</p>
