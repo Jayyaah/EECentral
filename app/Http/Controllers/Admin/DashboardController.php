@@ -13,7 +13,7 @@ class DashboardController extends Controller
             'totalArticles' => Article::count(),
             'publishedArticles' => Article::where('status', 'published')->count(),
             'draftArticles' => Article::where('status', 'draft')->count(),
-            'lastestArticles' => Article::latest()->take(5)->get(),
+            'latestArticles' => Article::latest()->take(5)->get(),
             ]);
     }
 }
