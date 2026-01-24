@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <link rel="stylesheet" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 </head>
 <body>
 <nav>
@@ -21,5 +23,10 @@
 @endif
 
 @yield('content')
+<script>
+    document.addEventListener('trix-file-accept', function(e){
+        e.preventDefault();
+    })
+</script>
 </body>
 </html>
