@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class NewUserAccountMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public function __construct(
+        public User $user,
+        public string $password
+    ) {}
+
+    public function build()
+    {
+        return $this->subject('Votre compte EE Central')
+            ->view('emails.new-user');
+    }
+}
