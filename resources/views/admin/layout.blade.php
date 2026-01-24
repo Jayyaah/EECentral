@@ -10,6 +10,7 @@
 <nav>
     <a href="{{ route('admin.dashboard') }}">Admin</a> |
     <a href="{{ route('admin.articles.index') }}">Articles</a> |
+    <a href="{{ route('admin.users.index') }}">Utilisateurs</a> |
     <a href="{{ route('admin.articles.create') }}">Nouveau</a>
 
     <form method="POST" action="{{ route('logout') }}" style="display:inline">
