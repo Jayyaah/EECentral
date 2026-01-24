@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Article;
+use Mews\Purifier\Facades\Purifier;
 
 class ArticleController extends Controller
 {
@@ -39,6 +40,8 @@ class ArticleController extends Controller
             'map'     => 'required|string|max:50',
             'status'  => 'required|in:draft,published',
         ]);
+
+        $validated['content'] = Purifier::clean($validated['content']);
 
         $validated['slug'] = Str::slug($validated['title']);
 
@@ -80,6 +83,8 @@ class ArticleController extends Controller
            'map'     => 'required|string|max:50',
            'status'  => 'required|in:draft,published',
         ]);
+
+        $validated['content'] = Purifier::clean($validated['content']);
 
         if ($validated['title'] !== $article->title) {
             $validated['slug'] = Str::slug($validated['title']);
