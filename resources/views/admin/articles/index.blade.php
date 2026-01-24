@@ -3,9 +3,9 @@
 @section('content')
     <h1>Articles</h1>
 
-    <a href="{{ route('admin.articles.create') }}">
-        ➕ Nouvel article
-    </a>
+    @can('create', App\Models\Article::class)
+        <a href="{{ route('admin.articles.create') }}">➕ Nouvel article</a>
+    @endcan
 
     <table border="1" cellpadding="10">
         <thead>
@@ -26,15 +26,19 @@
                 <td>{{ $article->map }}</td>
                 <td>{{ $article->status }}</td>
                 <td>
-                    <a href="{{ route('admin.articles.edit', $article) }}">Modifier</a>
-                    <form action="{{ route('admin.articles.destroy', $article) }}"
-                          method="POST"
-                          style="display:inline"
-                    onsubmit="return confirm('Supprimer cet article ?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Supprimer</button>
-                    </form>
+                    @can('update', $article)
+                        <a href="{{ route('admin.articles.edit', $article) }}">Modifierr️</a>
+                    @endcan
+                    @can('delete', $article)
+                        <form action="{{ route('admin.articles.destroy', $article) }}"
+                              method="POST"
+                              style="display:inline"
+                              onsubmit="return confirm('Supprimer cet article ?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    @endcan
                 </td>
             </tr>
         @empty
