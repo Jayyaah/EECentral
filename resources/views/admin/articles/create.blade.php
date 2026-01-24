@@ -3,6 +3,16 @@
 @section('content')
     <h1>Créer un article</h1>
 
+    @if($errors->any())
+        <div style="background:#fee2e2; padding:10px; margin-bottom:10px;">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('admin.articles.store') }}">
         @csrf
 
