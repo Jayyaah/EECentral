@@ -23,7 +23,8 @@
 
         <div>
             <label>Contenu</label><br>
-            <textarea name="content" rows="5" required></textarea>
+            <input id="content" type="hidden" name="content">
+            <trix-editor input="content"></trix-editor>
         </div>
 
         <div>
