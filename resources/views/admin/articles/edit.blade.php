@@ -24,7 +24,8 @@
 
         <div>
             <label>Contenu</label><br>
-            <textarea name="content" rows="5" required>{{ old('content', $article->content) }}</textarea>
+            <input id="content" type="hidden" name="content" value="{{ old('content', $article->content) }}">
+            <trix-editor input="content"></trix-editor>
         </div>
 
         <div>
